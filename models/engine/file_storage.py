@@ -21,24 +21,26 @@ class FileStorage:
         name = type(obj).__name__
         idName = str(obj.id)
         nameF = name + '.' + idName
-        self.__objects[nameF] = obj.to_dict()
+        self.__objects[nameF] = obj
 
     def save(self):
         """  serializes __objects to the JSON file (path: __file_path) """
+        dicto = {}
+        for k, v in self.__objects.items():
+            dicto[k] = v.to_dict()
         with open(self.__file_path, 'w') as fp:
-            print('PRIMER DICT')
-            print(self.__objects)
-            print('****************')
-            json.dump(self.__objects, fp)
+            json.dump(dicto, fp)
+            
 
     def reload(self):
         """ deserializes the JSON file to __objects (only if the JSON file (__file_path) exists;
         otherwise, do nothing. If the file doesn’t exist, no exception should be raised)"""
         try:
             with open( self.__file_path, 'r') as f:
-                obj = json.loads(f.read())
-            for i in obj:
-                self.__objects[i] = listclass[obj[i]["__class__"]](**obj[i])
+                dicObj = json.loads(f.read())
+            for k, v in dicObj.items():
+                base = k.split('.')[0]
+                if base in listclass:
+                    self.__objects[k] = listclass[base](**v)
         except:
             pass
-
