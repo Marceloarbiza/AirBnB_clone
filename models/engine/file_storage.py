@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 
 from models.base_model import BaseModel
+from models.user import User
 import json
 
-listclass = {'BaseModel': BaseModel}
+listclass = {'BaseModel': BaseModel, 'User': User}
 """
 listclass = {"BaseModel": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
 """
@@ -30,7 +31,6 @@ class FileStorage:
             dicto[k] = v.to_dict()
         with open(self.__file_path, 'w') as fp:
             json.dump(dicto, fp)
-            
 
     def reload(self):
         """ deserializes the JSON file to __objects (only if the JSON file (__file_path) exists;
