@@ -10,7 +10,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from models.engine.file_storage import FileStorage
 import cmd
 #from shlex import split
 
@@ -75,7 +74,19 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_all(self, arg):
-        """v"""
+        """ Prints all string representation of all instances based or not on the class name """
+        listArg = arg.split(' ')
+        if (arg == ''):
+            for key in models.storage.all():
+                print(models.storage.all()[key])
+
+        else:
+            if (listArg[0] not in listclass):
+                print("** class doesn't exist **")
+            elif len(listArg) == 1:
+                for key in models.storage.all().values():
+                    if key.__class__.__name__ == listArg[0]:
+                        print(key)
         pass
 
 if __name__ == '__main__':
