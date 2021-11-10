@@ -12,8 +12,6 @@ class BaseModel:
         if kwargs is not None and len(kwargs) >= 1:
             for key, value in kwargs.items():
                 if key != '__class__':
-#                    if (key == 'created_at' and type(self.created_at) is str) or (key == 'updated_at' and type(self.updated_at) is str):
-#                        value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                     setattr(self, key, value)
             if hasattr(self, 'created_at') and isinstance(self.created_at, str):
                 self.created_at = datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
