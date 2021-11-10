@@ -48,8 +48,7 @@ class HBNBCommand(cmd.Cmd):
                 print(models.storage.all()[compare])
             else:
                 print('** no instance found **')
-        else:
-            pass
+        pass
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id"""
@@ -66,6 +65,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id (save the change into the JSON file)"""
+        listArg = arg.split(' ')
+        if listArg[0] == '':
+            print('** class name missing **')
+        elif listArg[0] not in listclass:
+            print("** class doesn't exist **")
+        elif (listArg[0] in listclass) and len(listArg) == 1:
+            print('** instance id missing **')
+        elif len(listArg) == 2:
+            compare = (listArg[0] + '.' + listArg[1])
+            if compare in models.storage.all():
+                del (models.storage.all()[compare])
+            else:
+                print('** no instance found **')
+        pass
+
         pass
 
     def do_update(self, arg):
