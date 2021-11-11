@@ -51,19 +51,6 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
         pass
 
-#    def do_create(self, arg):
-#        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
-#        listArg = arg.split(' ')
-#        if listArg[0] == '':
-#            print('** class name missing **')
-#        elif listArg[0] != 'BaseModel':
-#            print("** class doesn't exist **")
-#        elif listArg[0] == 'BaseModel' and len(listArg) == 1:
-#            objBM = BaseModel()
-#            objBM.save()
-#            print(objBM.id)
-#        pass
-
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
@@ -119,20 +106,38 @@ class HBNBCommand(cmd.Cmd):
                 setattr(models.storage.all()[compare], listArg[2], listArg[3])
                 models.storage.all()[compare].save()
 
+#    def do_all(self, arg):
+#        """ Prints all string representation of all instances based or not on the class name\n"""
+#        listArg = arg.split(' ')
+#        if (arg == ''):
+#            for key in models.storage.all():
+#                print(str(models.storage.all()[key]))
+#        else:
+#            if (listArg[0] not in listclass):
+#                print("** class doesn't exist **")
+#            elif len(listArg) == 1:
+#                for value in models.storage.all().values():
+#                    if value.__class__.__name__ == listArg[0]:
+#                        print(str(value))
+#        pass
+
     def do_all(self, arg):
-        """ Prints all string representation of all instances based or not on the class name\n"""
+        """ """
+        listP = []
         listArg = arg.split(' ')
         if (arg == ''):
-            for key in models.storage.all():
-                print(str(models.storage.all()[key]))
+            for k, v in models.storage.all().items():
+                listP.append(str(v))
+            print('['+','.join(listP)+']')
         else:
             if (listArg[0] not in listclass):
                 print("** class doesn't exist **")
-            elif len(listArg) == 1:
-                for value in models.storage.all().values():
-                    if value.__class__.__name__ == listArg[0]:
-                        print(str(value))
-        pass
+            elif listArg[0] in listclass:
+                for k, v in models.storage.all().items():
+                    if listArg[0] in k:
+                        listP.append(str(models.storage.all()[k]))
+                print('['+','.join(listP)+']')
+
 
 if __name__ == '__main__':
         HBNBCommand().cmdloop()
