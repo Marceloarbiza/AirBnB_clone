@@ -13,7 +13,7 @@ from models.review import Review
 import cmd
 #from shlex import split
 
-listclass = {"BaseModel": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
+listclass = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
 notChangeThis = ['id', 'created_at', 'updated_up']
 
 class HBNBCommand(cmd.Cmd):
@@ -51,18 +51,33 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
         pass
 
+#    def do_create(self, arg):
+#        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
+#        listArg = arg.split(' ')
+#        if listArg[0] == '':
+#            print('** class name missing **')
+#        elif listArg[0] != 'BaseModel':
+#            print("** class doesn't exist **")
+#        elif listArg[0] == 'BaseModel' and len(listArg) == 1:
+#            objBM = BaseModel()
+#            objBM.save()
+#            print(objBM.id)
+#        pass
+
+
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
         listArg = arg.split(' ')
         if listArg[0] == '':
             print('** class name missing **')
-        elif listArg[0] != 'BaseModel':
+        elif listArg[0] not in listclass:
             print("** class doesn't exist **")
-        elif listArg[0] == 'BaseModel' and len(listArg) == 1:
-            objBM = BaseModel()
+        elif listArg[0] in listclass and len(listArg) == 1:
+            objBM = listclass[listArg[0]]()
             objBM.save()
             print(objBM.id)
         pass
+
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id (save the change into the JSON file)\n"""
