@@ -14,6 +14,7 @@ import cmd
 #from shlex import split
 
 listclass = {"BaseModel": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
+notChangeThis = ['id', 'created_at', 'updated_up']
 
 class HBNBCommand(cmd.Cmd):
     """Comands to cmd"""
@@ -91,14 +92,17 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif (listArg[0] in listclass) and len(listArg) == 1:
             print('** instance id missing **')
-        elif len(listArg) == 2:
+        else:
             compare = (listArg[0] + '.' + listArg[1])
             if (compare not in models.storage.all()):
                 print('** no instance found **')
-            elif (compare in models.storage.all()):
-                if listArg[1] not in dir(models.storage.all()):
-                    print('** attribute name missing **')
-        pass
+            elif len(listArg) == 2:
+                print('** attribute name missing **')
+            elif len(listArg) == 3: 
+                print('** value missing **')
+            else:
+                setattr(models.storage.all()[compare], listArg[2], listArg[3])
+                models.storage.all()[compare].save()
 
     def do_all(self, arg):
         """ Prints all string representation of all instances based or not on the class name\n"""
