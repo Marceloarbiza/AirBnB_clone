@@ -144,14 +144,18 @@ class HBNBCommand(cmd.Cmd):
         """ """
         try:
             str_tmp = ''
-            str_tmp = ' '.join(arg.replace('(','.').replace(')','').split('.'))
+            str_tmp = ' '.join(arg.replace('(','.').replace(')','').replace('"','').split('.'))
             list_tmp = str_tmp.split(' ')
             print('El string es: {}'.format(str_tmp))
             print(list_tmp)
             str_cmd = list_tmp[0] + ' ' + list_tmp[2]
             print('El string cmd: {}'.format(str_cmd))
 
-            dicFuncs = {'all' : self.do_all, 'create' : self.do_create, 'show' : self.do_show, 'destroy' : self.do_destroy, 'update' : self.do_update}
+            dicFuncs = {'all' : self.do_all, 
+                        'create' : self.do_create, 
+                        'show' : self.do_show, 
+                        'destroy' : self.do_destroy, 
+                        'update' : self.do_update}
             
             return dicFuncs[list_tmp[1]](str_cmd)
 
