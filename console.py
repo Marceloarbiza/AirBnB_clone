@@ -12,7 +12,6 @@ from models.place import Place
 from models.review import Review
 import cmd
 import re
-#from shlex import split
 
 listclass = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
 notChangeThis = ['id', 'created_at', 'updated_up']
@@ -23,11 +22,11 @@ class HBNBCommand(cmd.Cmd):
     listArg = []
 
     # ----- basic hbnb commands -----
-    def do_EOF(self, arg):
+    def do_EOF(self):
         """Quit command to exit the program\n"""
         return(1)
 
-    def do_quit(self, arg):
+    def do_quit(self):
         """Quit command to exit the program\n"""
         return(1)
 
@@ -80,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
             compare = (listArg[0] + '.' + listArg[1])
             if compare in models.storage.all():
                 del (models.storage.all()[compare])
-                #FALTA GUARDARLO?
+                #HAY QUE GUARDAR?
             else:
                 print('** no instance found **')
         pass
@@ -101,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
             elif len(listArg) == 2:
                 print('** attribute name missing **')
-            elif len(listArg) == 3: 
+            elif len(listArg) == 3:
                 print('** value missing **')
             else:
                 setattr(models.storage.all()[compare], listArg[2], listArg[3])
@@ -123,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
 #        pass
 
     def do_all(self, arg):
-        """ """
+        """ Prints all string representation of all instances based or not on the class name\n """
         listP = []
         listArg = arg.split(' ')
         if (arg == ''):
@@ -139,10 +138,20 @@ class HBNBCommand(cmd.Cmd):
                         listP.append(str(models.storage.all()[k]))
                 print('['+','.join(listP)+']')
 
-    
+
+    def do_count(self, arg):
+        """ Count the argument """
+        count = 0
+        print('hola')
+        for instance in models.storage.all():
+            if instance == arg[:-1]:
+                count += 1
+        print(count)
+
     def default(self, arg):
-        """ """
+        """ When the command prefix is not recognized call this method and change the words order for to try running with other method\n """
         try:
+            """
             str_tmp = ''
             str_tmp = ' '.join(arg.replace('(','.').replace(')','').replace('"','').split('.'))
             list_tmp = str_tmp.split(' ')
@@ -150,14 +159,28 @@ class HBNBCommand(cmd.Cmd):
             print(list_tmp)
             str_cmd = list_tmp[0] + ' ' + list_tmp[2]
             print('El string cmd: {}'.format(str_cmd))
+            """
 
-            dicFuncs = {'all' : self.do_all, 
-                        'create' : self.do_create, 
-                        'show' : self.do_show, 
-                        'destroy' : self.do_destroy, 
+            listdef = []
+            tmp = (re.split("[.(),]", arg))
+            for i in tmp:
+                if i != '':
+                    if i[0:1] == '\"':
+                        listdef.append(i[1:-1])
+                    else:
+                        listdef.append(i)
+            del listdef[1]
+
+            str_cmd = ' '.join(listdef)
+            dicFuncs = {'all' : self.do_all,
+                        'create' : self.do_create,
+                        'show' : self.do_show,
+                        'destroy' : self.do_destroy,
                         'update' : self.do_update}
-            
-            return dicFuncs[list_tmp[1]](str_cmd)
+            #print(str_cmd)
+            #return dicFuncs[list_tmp[1]](str_cmd)
+            print([tmp[1]], (str_cmd))
+            return dicFuncs[tmp[1]](str_cmd)
 
         except:
             print('NO ENTRÓ')
