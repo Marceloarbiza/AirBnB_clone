@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 import cmd
+import re
 #from shlex import split
 
 listclass = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
@@ -137,6 +138,26 @@ class HBNBCommand(cmd.Cmd):
                     if listArg[0] in k:
                         listP.append(str(models.storage.all()[k]))
                 print('['+','.join(listP)+']')
+
+    
+    def default(self, arg):
+        """ """
+        try:
+            str_tmp = ''
+            str_tmp = ' '.join(arg.replace('(','.').replace(')','').split('.'))
+            list_tmp = str_tmp.split(' ')
+            print('El string es: {}'.format(str_tmp))
+            print(list_tmp)
+            str_cmd = list_tmp[0] + ' ' + list_tmp[2]
+            print('El string cmd: {}'.format(str_cmd))
+
+            dicFuncs = {'all' : self.do_all, 'create' : self.do_create, 'show' : self.do_show, 'destroy' : self.do_destroy, 'update' : self.do_update}
+            
+            return dicFuncs[list_tmp[1]](str_cmd)
+
+        except:
+            print('NO ENTRÓ')
+            pass
 
 
 if __name__ == '__main__':
