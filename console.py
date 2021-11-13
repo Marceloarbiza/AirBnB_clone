@@ -24,11 +24,11 @@ class HBNBCommand(cmd.Cmd):
     # ----- basic hbnb commands -----
     def do_EOF(self):
         """Quit command to exit the program\n"""
-        return(1)
+        return True
 
     def do_quit(self):
         """Quit command to exit the program\n"""
-        return(1)
+        return True
 
     def emptyline(self):
         """ pass line """
