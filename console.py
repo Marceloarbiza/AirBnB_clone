@@ -141,12 +141,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """ Count the argument """
+        listArg = arg.split(' ')
         count = 0
-        print('hola')
-        for instance in models.storage.all():
-            if instance == arg[:-1]:
-                count += 1
-        print(count)
+        if arg == '()':
+            print('** class name missing **')
+        elif listArg[0] not in listclass:
+            print("** class doesn't exist **")
+        else:
+            for instance, value in models.storage.all().items():
+                if models.storage.all()[instance].__class__.__name__ == listArg[0]:
+                    count += 1
+            print(count)
 
     def default(self, arg):
         """ When the command prefix is not recognized call this method and change the words order for to try running with other method\n """
@@ -176,9 +181,11 @@ class HBNBCommand(cmd.Cmd):
                         'create' : self.do_create,
                         'show' : self.do_show,
                         'destroy' : self.do_destroy,
-                        'update' : self.do_update}
+                        'update' : self.do_update,
+                        'count' : self.do_count}
             #print(str_cmd)
             #return dicFuncs[list_tmp[1]](str_cmd)
+            #print('++++++++++++++++++++++++++\n Funcion default \n+++++++++++++++++')
             print([tmp[1]], (str_cmd))
             return dicFuncs[tmp[1]](str_cmd)
 
