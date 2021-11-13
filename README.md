@@ -104,4 +104,4 @@ $
 | Marcelo Arbiza  | Diego Guarise |
 |--|--|
 | [GitHub](https://github.com/Marceloarbiza) |[GitHub](https://github.com/Diego-Guarise)|
-|[Linkedin]()|[Linkedin](https://www.linkedin.com/in/diego-guarise/)|
+|[Linkedin](https://www.linkedin.com/in/marcelo-arbiza-7b9b9b15a/)|[Linkedin](https://www.linkedin.com/in/diego-guarise/)|
