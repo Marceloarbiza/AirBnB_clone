@@ -88,6 +88,14 @@ class HBNBCommand(cmd.Cmd):
         """Updates an instance based on the class name and id by adding
         or updating attribute (save the change into the JSON file).\n"""
         listArg = arg.split(' ')
+        while '' in listArg:
+            listArg.remove('')
+        print('arg.split {}'.format(listArg))
+        """if len(str_cmd) >= 3:
+            arg1 = 0
+            arg2 = 0
+            while arg1:
+        """
         if listArg[0] == '':
             print('** class name missing **')
         elif listArg[0] not in listclass:
@@ -155,44 +163,31 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """ When the command prefix is not recognized call this method and change the words order for to try running with other method\n """
-        try:
-            """
-            str_tmp = ''
-            str_tmp = ' '.join(arg.replace('(','.').replace(')','').replace('"','').split('.'))
-            list_tmp = str_tmp.split(' ')
-            print('El string es: {}'.format(str_tmp))
-            print(list_tmp)
-            str_cmd = list_tmp[0] + ' ' + list_tmp[2]
-            print('El string cmd: {}'.format(str_cmd))
-            """
 
-            listdef = []
-            tmp = (re.split("[.(),]", arg))
-            for i in tmp:
-                if i != '':
-                    if i[0:1] == '\"':
-                        listdef.append(i[1:-1])
-                    else:
-                        listdef.append(i)
-            del listdef[1]
+        listdef = []
+        tmp = (re.split("[.(),]", arg))
+        for i in tmp:
+            if i != '':
+                if i[0:1] == '\"':
+                    listdef.append(i[1:-1])
+                else:
+                    listdef.append(i)
+        del listdef[1]
 
-            str_cmd = ' '.join(listdef)
-            dicFuncs = {'all' : self.do_all,
-                        'create' : self.do_create,
-                        'show' : self.do_show,
-                        'destroy' : self.do_destroy,
-                        'update' : self.do_update,
-                        'count' : self.do_count}
-            #print(str_cmd)
-            #return dicFuncs[list_tmp[1]](str_cmd)
-            #print('++++++++++++++++++++++++++\n Funcion default \n+++++++++++++++++')
-            print([tmp[1]], (str_cmd))
-            return dicFuncs[tmp[1]](str_cmd)
+        str_cmd = (' '.join(listdef)).replace("\"", '')
 
-        except:
-            print('NO ENTRÓ')
-            pass
+        print([tmp[1]],(str_cmd))
 
+
+        dicFuncs = {'all' : self.do_all,
+                    'create' : self.do_create,
+                    'show' : self.do_show,
+                    'destroy' : self.do_destroy,
+                    'update' : self.do_update,
+                    'count' : self.do_count}
+
+        print('str_cmd {}'.format(str_cmd))
+        return dicFuncs[tmp[1]](str_cmd)
 
 if __name__ == '__main__':
         HBNBCommand().cmdloop()
