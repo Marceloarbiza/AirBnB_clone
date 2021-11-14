@@ -43,13 +43,13 @@ class TestAirbnb(unittest.TestCase):
         self.assertTrue(hasattr(obj_am, 'name'), True)
         self.assertEqual(type(obj_am.name), str)
 
-    def test_basemodel_dict(self):
+    def test_amenity_dict(self):
         """ test correct atributes of the class """
         obj_am = Amenity()
 
         self.assertTrue(type(obj_am.to_dict()), dict)
 
-    def test_basemodel_to_dict(self):
+    def test_amenity_to_dict(self):
         """ test the objet in dictionary representation like method to_dict """
         obj_am = Amenity()
         obj_am_d = obj_am.to_dict()
