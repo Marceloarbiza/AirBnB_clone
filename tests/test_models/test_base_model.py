@@ -44,6 +44,9 @@ class TestAirbnb(unittest.TestCase):
         keys = ["id", "name", "my_number", "created_at",
                 "updated_at", "__class__"]
         self.assertCountEqual(model_dict.keys(), keys)
+        self.assertIn("my_number", model_dict)
+        self.assertIn("name", model_dict)
+        self.assertIn("__class__", model_dict)
         self.assertEqual(model_dict["__class__"], "BaseModel")
         self.assertEqual(model_dict["name"], "My First Model")
         self.assertEqual(model_dict["my_number"], 89)
