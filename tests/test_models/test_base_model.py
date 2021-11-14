@@ -9,20 +9,21 @@ class TestAirbnb(unittest.TestCase):
     def test_basemodel(self):
         """ test BaseModel """
 
+        obj_bm = BaseModel()
+
+        self.assertEqual(obj_bm.__class__, BaseModel)
+        self.assertTrue(hasattr(obj_bm, 'id'), True)
+        self.assertEqual(type(obj_bm.id), str)
+        self.assertTrue(hasattr(obj_bm, 'created_at'), True)
+        self.assertEqual(type(obj_bm.created_at), datetime)
+        self.assertTrue(hasattr(obj_bm, 'updated_at'), True)
+        self.assertEqual(type(obj_bm.updated_at), datetime)
+        self.assertTrue(type(obj_bm.to_dict()), dict)
+
+    def test_ids(self):
+        """ test differente objects """
+
         obj_bm_1 = BaseModel()
-
-        self.assertEqual(obj_bm_1.__class__, BaseModel)
-        self.assertTrue(hasattr(obj_bm_1, 'id'), True)
-        self.assertEqual(type(obj_bm_1.id), str)
-        self.assertTrue(hasattr(obj_bm_1, 'created_at'), True)
-        self.assertEqual(type(obj_bm_1.created_at), datetime)
-        self.assertTrue(hasattr(obj_bm_1, 'updated_at'), True)
-        self.assertEqual(type(obj_bm_1.updated_at), datetime)
-
-        self.assertTrue(type(obj_bm_1.to_dict()), dict)
-
-        self.assertEqual(obj_bm_1.created_at, obj_bm_1.updated_at)
-
         obj_bm_2 = BaseModel()
 
         self.assertEqual(type(obj_bm_1), type(obj_bm_2))
@@ -65,3 +66,14 @@ class TestAirbnb(unittest.TestCase):
         self.assertIsNotNone(BaseModel.save.__doc__)
         self.assertIsNotNone(BaseModel.to_dict.__doc__)
         self.assertIsNotNone(BaseModel.__str__.__doc__)
+
+    def test_save(self):
+        """ test save method`"""
+        obj_bm_5 = BaseModel()
+        created_at_1 = obj_bm_5.created_at
+        updated_at_1 = obj_bm_5.updated_at
+        obj_bm_5.save()
+        created_at_2 = obj_bm_5.created_at
+        updated_at_2 = obj_bm_5.updated_at
+        self.assertEqual(created_at_1, created_at_2)
+        self.assertNotEqual(updated_at_1, updated_at_2)
