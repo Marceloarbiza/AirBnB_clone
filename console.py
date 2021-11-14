@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
             compare = (listArg[0] + '.' + listArg[1])
             if compare in models.storage.all():
                 del (models.storage.all()[compare])
-                #HAY QUE GUARDAR?
+                models.storage.save()
             else:
                 print('** no instance found **')
         pass
@@ -140,7 +140,8 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in models.storage.all().items():
                     if listArg[0] in k:
                         listP.append(str(models.storage.all()[k]))
-                print('['+','.join(listP)+']')
+                listaaa = ('['+','.join(listP)+']')
+                print(listaaa)
 
 
     def do_count(self, arg):
