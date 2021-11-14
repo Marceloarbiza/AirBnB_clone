@@ -90,6 +90,8 @@ class HBNBCommand(cmd.Cmd):
         """Updates an instance based on the class name and id by adding
         or updating attribute (save the change into the JSON file).\n"""
         listArg = arg.split(' ')
+        if (listArg[3][:1] == "\""):
+            listArg[3] = listArg[3][1:-1]
         while '' in listArg:
             listArg.remove('')
         if listArg[0] == '':
