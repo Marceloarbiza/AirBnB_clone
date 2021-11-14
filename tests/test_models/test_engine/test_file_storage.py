@@ -58,7 +58,7 @@ class TestAirbnb_Storage(unittest.TestCase):
         """ test the creation of different instances """
 
         models.storage.new(BaseModel)
-        models.storage.new(BaseModel)
+        models.storage.new(State)
         models.storage.new(BaseModel)
         models.storage.new(BaseModel)
         models.storage.new(BaseModel)
