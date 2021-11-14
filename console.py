@@ -140,8 +140,8 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in models.storage.all().items():
                     if listArg[0] in k:
                         listP.append(str(models.storage.all()[k]))
-                listaaa = ('['+','.join(listP)+']')
-                print(listaaa)
+                #listaaa = ('['+','.join(listP)+']')
+                print(listP)
 
 
     def do_count(self, arg):
