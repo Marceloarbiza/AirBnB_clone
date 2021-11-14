@@ -101,3 +101,28 @@ class TestAirbnb_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("destroy BaseModel 121212")
             self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    """ ____________ Test all ____________ """
+
+    def test_all_incorrect_name(self):
+        """ test all command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all MyModel")
+            self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
+
+    def test_all_correct(self):
+        """ test all command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all")
+            self.assertTrue(f.getvalue())
+
+    def test_all_correct_class(self):
+        """ test all command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all BaseModel")
+            self.assertTrue(f.getvalue())
+
+
