@@ -12,6 +12,8 @@ from models.place import Place
 from models.review import Review
 import cmd
 import re
+import ast
+
 
 listclass = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
 notChangeThis = ['id', 'created_at', 'updated_up']
@@ -90,12 +92,6 @@ class HBNBCommand(cmd.Cmd):
         listArg = arg.split(' ')
         while '' in listArg:
             listArg.remove('')
-        print('arg.split {}'.format(listArg))
-        """if len(str_cmd) >= 3:
-            arg1 = 0
-            arg2 = 0
-            while arg1:
-        """
         if listArg[0] == '':
             print('** class name missing **')
         elif listArg[0] not in listclass:
@@ -163,8 +159,14 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """ When the command prefix is not recognized call this method and change the words order for to try running with other method\n """
-
         listdef = []
+        dicFuncs = {'all' : self.do_all,
+                    'create' : self.do_create,
+                    'show' : self.do_show,
+                    'destroy' : self.do_destroy,
+                    'update' : self.do_update,
+                    'count' : self.do_count}
+
         tmp = (re.split("[.(),]", arg))
         for i in tmp:
             if i != '':
@@ -174,19 +176,26 @@ class HBNBCommand(cmd.Cmd):
                     listdef.append(i)
         del listdef[1]
 
+        if tmp[1] == 'update':
+            if (listdef[2][1:2] == '{') and (listdef[3][-1:] == '}'):
+                str_cmd = (' '.join(listdef))
+                #tmpDic = (str_cmd.split('  ')[1] + ', ' + str_cmd.split('  ')[2])
+                updateDic = ast.literal_eval(str_cmd.split('  ')[1] + ', ' + str_cmd.split('  ')[2])
+                for key, value in updateDic.items():
+                    idkeyvalue = str(str_cmd.split(' ')[0]) + ' ' + str(str_cmd.split(' ')[1]) + ' ' + str(str(key) + ' ' + str(value))
+                    print(idkeyvalue)
+                    print(str_cmd.split(' ')[1])
+                    dicFuncs[tmp[1]](idkeyvalue)
+                return False
+            else:
+                print(listdef)
+
         str_cmd = (' '.join(listdef)).replace("\"", '')
 
-        print([tmp[1]],(str_cmd))
+        #print([tmp[1]],(str_cmd))
 
+        #print('str_cmd {}'.format(str_cmd))
 
-        dicFuncs = {'all' : self.do_all,
-                    'create' : self.do_create,
-                    'show' : self.do_show,
-                    'destroy' : self.do_destroy,
-                    'update' : self.do_update,
-                    'count' : self.do_count}
-
-        print('str_cmd {}'.format(str_cmd))
         return dicFuncs[tmp[1]](str_cmd)
 
 if __name__ == '__main__':
