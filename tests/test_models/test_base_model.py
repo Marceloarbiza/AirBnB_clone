@@ -2,13 +2,13 @@
 
 import unittest
 from models.base_model import BaseModel
+import models
 from datetime import datetime
 
 
 class TestAirbnb(unittest.TestCase):
     def test_basemodel(self):
-        """ test BaseModel """
-
+        """ test correct atributes of the class """
         obj_bm = BaseModel()
 
         self.assertEqual(obj_bm.__class__, BaseModel)
@@ -21,8 +21,7 @@ class TestAirbnb(unittest.TestCase):
         self.assertTrue(type(obj_bm.to_dict()), dict)
 
     def test_ids(self):
-        """ test differente objects """
-
+        """ test differente objects ids """
         obj_bm_1 = BaseModel()
         obj_bm_2 = BaseModel()
 
@@ -52,7 +51,7 @@ class TestAirbnb(unittest.TestCase):
         self.assertEqual(model_dict["my_number"], 89)
 
     def test_str(self):
-
+        """ test the string representation of the object """
         obj_bm_3 = BaseModel()
         str_obj_3 = str(obj_bm_3)
         str_compare = '[{}] ({}) {}'.format(
@@ -77,3 +76,8 @@ class TestAirbnb(unittest.TestCase):
         updated_at_2 = obj_bm_5.updated_at
         self.assertEqual(created_at_1, created_at_2)
         self.assertNotEqual(updated_at_1, updated_at_2)
+
+    def test_stored(self):
+        """ test correct storage """
+        obj_bm_6 = BaseModel()
+        self.assertIn(obj_bm_6, models.storage.all().values())
