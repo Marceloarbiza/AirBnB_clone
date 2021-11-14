@@ -4,9 +4,10 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
-class TestAirbnb(unittest.TestCase):
 
+class TestAirbnb(unittest.TestCase):
     def test_basemodel(self):
+        """ test BaseModel """
 
         obj_bm_1 = BaseModel()
 
@@ -19,7 +20,7 @@ class TestAirbnb(unittest.TestCase):
         self.assertEqual(type(obj_bm_1.updated_at), datetime)
 
         self.assertTrue(type(obj_bm_1.to_dict()), dict)
-        
+
         self.assertEqual(obj_bm_1.created_at, obj_bm_1.updated_at)
 
         obj_bm_2 = BaseModel()
@@ -32,8 +33,6 @@ class TestAirbnb(unittest.TestCase):
         obj_bm_2.id = '1234'
 
         self.assertEqual(obj_bm_2.id, '1234')
-
-
 
     def test_to_dict(self):
         """Test to_dict() method of BaseClass """
@@ -55,7 +54,14 @@ class TestAirbnb(unittest.TestCase):
 
         obj_bm_3 = BaseModel()
         str_obj_3 = str(obj_bm_3)
-        str_compare = '[{}] ({}) {}'.format(type(obj_bm_3).__name__, obj_bm_3.id, obj_bm_3.__dict__)
+        str_compare = '[{}] ({}) {}'.format(
+                type(obj_bm_3).__name__, obj_bm_3.id, obj_bm_3.__dict__)
 
         self.assertEqual(str_obj_3, str_compare)
 
+    def test_doc(self):
+        """Docstring"""
+        self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(BaseModel.save.__doc__)
+        self.assertIsNotNone(BaseModel.to_dict.__doc__)
+        self.assertIsNotNone(BaseModel.__str__.__doc__)
