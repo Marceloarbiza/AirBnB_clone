@@ -50,6 +50,7 @@ class FileStorage:
             for k, v in dicObj.items():
                 base = k.split('.')[0]
                 if base in listclass:
-                    self.__objects[k] = listclass[base](**v)
+                    self.new(eval(base)(**v))
+                    #self.__objects[k] = listclass[base](**v)
         except:
             pass
