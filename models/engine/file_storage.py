@@ -10,7 +10,15 @@ from models.review import Review
 import json
 
 
-listclass = {"BaseModel": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
+listclass = {
+                "BaseModel": BaseModel,
+                "User": User,
+                "State": State,
+                "City": City,
+                "Amenity": Amenity,
+                "Place": Place,
+                "Review": Review}
+
 
 class FileStorage:
     def __init__(self):
@@ -37,10 +45,14 @@ class FileStorage:
             json.dump(dicto, fp)
 
     def reload(self):
-        """ deserializes the JSON file to __objects (only if the JSON file (__file_path) exists;
-        otherwise, do nothing. If the file doesn’t exist, no exception should be raised)"""
+        """
+            deserializes the JSON file to __objects
+            (only if the JSON file (__file_path) exists;
+            otherwise, do nothing. If the file doesn’t exist,
+            no exception should be raised)
+        """
         try:
-            with open( self.__file_path, 'r') as f:
+            with open(self.__file_path, 'r') as f:
                 dicObj = json.loads(f.read())
             for k, v in dicObj.items():
                 base = k.split('.')[0]
