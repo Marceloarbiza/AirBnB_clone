@@ -109,7 +109,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(models.storage.all()[compare], listArg[2], listArg[3])
                 models.storage.all()[compare].save()
-                models.storage.save()
 
 #    def do_all(self, arg):
 #        """ Prints all string representation of all instances based or not on the class name\n"""
