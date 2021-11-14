@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
             compare = (listArg[0] + '.' + listArg[1])
             if compare in models.storage.all():
                 del (models.storage.all()[compare])
-                models.storage.save()
+                #models.storage.save()
             else:
                 print('** no instance found **')
         pass
