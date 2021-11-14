@@ -25,8 +25,15 @@ class TestAirbnb(unittest.TestCase):
         obj_bm_2 = BaseModel()
 
         self.assertEqual(type(obj_bm_1), type(obj_bm_2))
-
         self.assertNotEqual(obj_bm_1.id, obj_bm_2.id)
+
+        id_2 = obj_bm_2.id
+
+        obj_bm_2.id = '1234'
+
+        self.assertEqual(obj_bm_2.id, '1234')
+
+
 
     def test_to_dict(self):
         """Test to_dict() method of BaseClass """
