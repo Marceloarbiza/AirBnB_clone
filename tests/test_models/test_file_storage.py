@@ -111,3 +111,15 @@ class TestAirbnb_Storage(unittest.TestCase):
         self.assertIn('{}.{}'.format(r.__class__.__name__, r.id), data)
         self.assertIn('{}.{}'.format(u.__class__.__name__, u.id), data)
         
+    def test_doc(self):
+        """Docstring"""
+
+        self.assertIsNotNone(FileStorage.all.__doc__)
+        self.assertIsNotNone(FileStorage.new.__doc__)
+        self.assertIsNotNone(FileStorage.save.__doc__)
+        self.assertIsNotNone(FileStorage.reload.__doc__)
+
+    def test_file_path(self):
+        """ testing reload """
+        
+        self.assertTrue(hasattr(models.storage, "_FileStorage__file_path"))
