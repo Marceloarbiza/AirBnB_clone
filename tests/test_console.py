@@ -125,4 +125,45 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd("all BaseModel")
             self.assertTrue(f.getvalue())
 
+    """ ____________ Test update ____________ """
+    
+    """
+    def test_update_missing_name(self):
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update")
+            self.assertEqual(f.getvalue(), "** class name missing **\n")
+    """
+
+    def test_update_dexist_name(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update MyModel")
+            self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
+
+    def test_update_missing_id(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update BaseModel")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_update_incorect_id(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update BaseModel 121212")
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    def test_update_corect_id(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            bm_id = f.getvalue()
+            str_show = '{} {} {}'.format('update', 'BaseModel', bm_id)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(str_show)
+            self.assertEqual(f.getvalue(), "** attribute name missing **\n")
 
