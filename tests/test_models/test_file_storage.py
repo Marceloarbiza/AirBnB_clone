@@ -56,12 +56,28 @@ class TestAirbnb_Storage(unittest.TestCase):
 
     def test_new_instance(self):
         """ test the creation of different instances """
+        b = BaseModel()
+        s = State()
+        c = City()
+        a = Amenity()
+        p = Place()
+        r = Review()
+        u = User()
+            
+        models.storage.new(b)
+        models.storage.new(s)
+        models.storage.new(c)
+        models.storage.new(a)
+        models.storage.new(p)
+        models.storage.new(r)
+        models.storage.new(u)
 
-        models.storage.new(BaseModel)
-        models.storage.new(State)
-        models.storage.new(BaseModel)
-        models.storage.new(BaseModel)
-        models.storage.new(BaseModel)
-        models.storage.new(BaseModel)
-        models.storage.new(BaseModel)
-        models.storage.new(BaseModel)
+        self.assertIn('{}.{}'.format(b.__class__.__name__, b.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(s.__class__.__name__, s.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(c.__class__.__name__, c.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(a.__class__.__name__, a.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(p.__class__.__name__, p.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(r.__class__.__name__, r.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(u.__class__.__name__, u.id), models.storage.all().keys())
+       
+
