@@ -18,6 +18,7 @@ import ast
 listclass = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
 notChangeThis = ['id', 'created_at', 'updated_up']
 
+
 class HBNBCommand(cmd.Cmd):
     """Comands to cmd"""
     prompt = '(hbnb) '
@@ -53,7 +54,6 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
         pass
 
-
     def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
         listArg = arg.split(' ')
@@ -66,7 +66,6 @@ class HBNBCommand(cmd.Cmd):
             objBM.save()
             print(objBM.id)
         pass
-
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id (save the change into the JSON file)\n"""
@@ -110,21 +109,6 @@ class HBNBCommand(cmd.Cmd):
                 setattr(models.storage.all()[compare], listArg[2], listArg[3])
                 models.storage.all()[compare].save()
 
-#    def do_all(self, arg):
-#        """ Prints all string representation of all instances based or not on the class name\n"""
-#        listArg = arg.split(' ')
-#        if (arg == ''):
-#            for key in models.storage.all():
-#                print(str(models.storage.all()[key]))
-#        else:
-#            if (listArg[0] not in listclass):
-#                print("** class doesn't exist **")
-#            elif len(listArg) == 1:
-#                for value in models.storage.all().values():
-#                    if value.__class__.__name__ == listArg[0]:
-#                        print(str(value))
-#        pass
-
     def do_all(self, arg):
         """ Prints all string representation of all instances based or not on the class name\n """
         listP = []
@@ -140,9 +124,7 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in models.storage.all().items():
                     if listArg[0] in k:
                         listP.append(str(models.storage.all()[k]))
-                #listaaa = ('['+','.join(listP)+']')
                 print(listP)
-
 
     def do_count(self, arg):
         """ Count the argument """
@@ -161,12 +143,12 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         """ When the command prefix is not recognized call this method and change the words order for to try running with other method\n """
         listdef = []
-        dicFuncs = {'all' : self.do_all,
-                    'create' : self.do_create,
-                    'show' : self.do_show,
-                    'destroy' : self.do_destroy,
-                    'update' : self.do_update,
-                    'count' : self.do_count}
+        dicFuncs = {'all': self.do_all,
+                    'create': self.do_create,
+                    'show': self.do_show,
+                    'destroy': self.do_destroy,
+                    'update': self.do_update,
+                    'count': self.do_count}
 
         tmp = (re.split("[.(),]", arg))
         for i in tmp:
@@ -180,7 +162,6 @@ class HBNBCommand(cmd.Cmd):
         if tmp[1] == 'update':
             if (listdef[2][1:2] == '{') and (listdef[3][-1:] == '}'):
                 str_cmd = (' '.join(listdef))
-                #tmpDic = (str_cmd.split('  ')[1] + ', ' + str_cmd.split('  ')[2])
                 updateDic = ast.literal_eval(str_cmd.split('  ')[1] + ', ' + str_cmd.split('  ')[2])
                 for key, value in updateDic.items():
                     idkeyvalue = str(str_cmd.split(' ')[0]) + ' ' + str(str_cmd.split(' ')[1]) + ' ' + str(str(key) + ' ' + str(value))
@@ -192,10 +173,6 @@ class HBNBCommand(cmd.Cmd):
                 print(listdef)
 
         str_cmd = (' '.join(listdef)).replace("\"", '')
-
-        #print([tmp[1]],(str_cmd))
-
-        #print('str_cmd {}'.format(str_cmd))
 
         return dicFuncs[tmp[1]](str_cmd)
 
