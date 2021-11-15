@@ -263,3 +263,78 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd(str_show)
             self.assertEqual(f.getvalue(), "** attribute name missing **\n")
 
+    """ ____________ Test State _____________ """
+
+    def test_state_create_exist_name(self):
+        """ test create command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            pattern = "^[a-z0-9-]*$"
+            self.assertTrue(bool(re.match(pattern, f.getvalue())))
+
+    def test_state_show_missing_id(self):
+        """ test show command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show State")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_state_show_corect_id(self):
+        """ test show command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            bm_id = f.getvalue()
+            str_show = '{} {} {}'.format('show', 'State', bm_id)
+        with patch('sys.stdout', new=StringIO()) as f:            
+            HBNBCommand().onecmd(str_show)
+            pattern = "[a-zA-Z0-9-:',[{}_()]"
+            self.assertTrue(bool(re.match(pattern, f.getvalue())))
+
+    def test_state_destroy_missing_id(self):
+        """ test destroy command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy State")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_state_destroy_incorect_id(self):
+        """ test destroy command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy State 121212")
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    def test_state_all_correct_class(self):
+        """ test all command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all State")
+            self.assertTrue(f.getvalue())
+
+    def test_state_update_missing_id(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update State")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_state_update_incorect_id(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update State 121212")
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    def test_user_update_corect_id(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State")
+            bm_id = f.getvalue()
+            str_show = '{} {} {}'.format('update', 'State', bm_id)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(str_show)
+            self.assertEqual(f.getvalue(), "** attribute name missing **\n")
+
