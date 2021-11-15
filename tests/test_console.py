@@ -167,3 +167,14 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd(str_show)
             self.assertEqual(f.getvalue(), "** attribute name missing **\n")
 
+    """    
+    def test_update_corect_id(self):
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            bm_id = f.getvalue()
+            str_up = '{} {} {} {}'.format('update', 'BaseModel', bm_id, 'first_name')
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(str_up)
+            self.assertEqual(f.getvalue(), "** value missing **\n")
+    """
