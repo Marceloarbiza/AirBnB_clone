@@ -35,7 +35,6 @@ class TestAirbnb(unittest.TestCase):
         self.assertTrue(hasattr(obj_ci, 'updated_at'), True)
         self.assertEqual(type(obj_ci.updated_at), datetime)
 
-
     def test_city_name(self):
         """ test correct atributes of the class """
         obj_ci = City()
@@ -67,7 +66,6 @@ class TestAirbnb(unittest.TestCase):
         self.assertEqual(type(obj_ci_d["updated_at"]), str)
         self.assertTrue(type(obj_ci_d), dict)
         self.assertNotEqual(obj_ci_d, obj_ci.__dict__)
-    
 
     def test_ids(self):
         """ test differente objects ids """
@@ -121,7 +119,7 @@ class TestAirbnb(unittest.TestCase):
 
         created_at_1 = obj_ci_5.created_at
         updated_at_1 = obj_ci_5.updated_at
-        
+
         obj_ci_5.save()
 
         created_at_2 = obj_ci_5.created_at
@@ -134,4 +132,3 @@ class TestAirbnb(unittest.TestCase):
         """ test correct storage """
         obj_ci_6 = City()
         self.assertIn(obj_ci_6, models.storage.all().values())
-
