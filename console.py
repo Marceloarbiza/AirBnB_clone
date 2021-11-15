@@ -15,7 +15,10 @@ import re
 import ast
 
 
-listclass = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+listclass = {'BaseModel': BaseModel, 'User': User,
+             'State': State, 'City': City,
+             'Amenity': Amenity, 'Place': Place,
+             'Review': Review}
 notChangeThis = ['id', 'created_at', 'updated_up']
 
 
@@ -38,7 +41,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on the class name and id\n"""
+        """
+        Prints the string representation of an instance
+        based on the class name and id\n
+        """
         listArg = arg.split(' ')
         if listArg[0] == '':
             print('** class name missing **')
@@ -55,7 +61,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
+        """
+        Creates a new instance of BaseModel, saves it
+        (to the JSON file) and prints the id\n
+        """
         listArg = arg.split(' ')
         if listArg[0] == '':
             print('** class name missing **')
@@ -68,7 +77,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id (save the change into the JSON file)\n"""
+        """
+        Deletes an instance based on the class name
+        and id (save the change into the JSON file)\n
+        """
         listArg = arg.split(' ')
         if listArg[0] == '':
             print('** class name missing **')
@@ -110,7 +122,10 @@ class HBNBCommand(cmd.Cmd):
                 models.storage.all()[compare].save()
 
     def do_all(self, arg):
-        """ Prints all string representation of all instances based or not on the class name\n """
+        """
+        Prints all string representation of all
+        instances based or not on the class name\n
+        """
         listP = []
         listArg = arg.split(' ')
         if (arg == ''):
@@ -136,12 +151,17 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             for instance, value in models.storage.all().items():
-                if models.storage.all()[instance].__class__.__name__ == listArg[0]:
+                if models.storage.all()[instance]\
+                        .__class__.__name__ == listArg[0]:
                     count += 1
             print(count)
 
     def default(self, arg):
-        """ When the command prefix is not recognized call this method and change the words order for to try running with other method\n """
+        """
+        When the command prefix is not recognized call this
+        method and change the words order for to try
+        running with other method\n
+        """
         listdef = []
         dicFuncs = {'all': self.do_all,
                     'create': self.do_create,
@@ -162,16 +182,17 @@ class HBNBCommand(cmd.Cmd):
         if tmp[1] == 'update':
             if (listdef[2][1:2] == '{') and (listdef[3][-1:] == '}'):
                 str_cmd = (' '.join(listdef))
-                updateDic = ast.literal_eval(str_cmd.split('  ')[1] + ', ' + str_cmd.split('  ')[2])
+                updateDic = ast.literal_eval(str_cmd.split(
+                    '  ')[1] + ', ' + str_cmd.split('  ')[2])
                 for key, value in updateDic.items():
-                    idkeyvalue = str(str_cmd.split(' ')[0]) + ' ' + str(str_cmd.split(' ')[1]) + ' ' + str(str(key) + ' ' + str(value))
-                    print(idkeyvalue)
-                    print(str_cmd.split(' ')[1])
+                    tmporal = str(str(str_cmd.split(' ')[0]) + ' ' + str(
+                        str_cmd.split(' ')[1]) + ' ')
+                    idkeyvalue = str(tmporal + str(str(key) + ' ' + str(
+                        value)))
                     dicFuncs[tmp[1]](idkeyvalue)
                 return False
             else:
-                print(listdef)
-
+                pass
         str_cmd = (' '.join(listdef)).replace("\"", '')
 
         return dicFuncs[tmp[1]](str_cmd)
