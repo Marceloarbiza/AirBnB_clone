@@ -338,3 +338,16 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd(str_show)
             self.assertEqual(f.getvalue(), "** attribute name missing **\n")
 
+    """ ____________ Test Count _____________ """
+
+    def test_count(self):
+        """ test count command """
+    
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+            num_ini = int(f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.count()")
+            self.assertEqual(int(f.getvalue()), num_ini + 1)
