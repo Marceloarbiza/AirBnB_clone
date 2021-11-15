@@ -167,14 +167,99 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd(str_show)
             self.assertEqual(f.getvalue(), "** attribute name missing **\n")
 
-    """    
+    """            
     def test_update_corect_id(self):
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create BaseModel")
             bm_id = f.getvalue()
-            str_up = '{} {} {} {}'.format('update', 'BaseModel', bm_id, 'first_name')
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd(str_up)
+            HBNBCommand().onecmd("update BaseModel " + bm_id + " first_name")
             self.assertEqual(f.getvalue(), "** value missing **\n")
+    
+    def test_update_correct(self):
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            bm_id = f.getvalue()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update BaseModel " + bm_id + "first_name Franquito")
+            HBNBCommand().onecmd("show BaseModel " + bm_id)
+            self.assertTrue("Franquito" in f.getvalue())
     """
+
+    """ ____________ Test User _____________ """
+
+    def test_create_exist_name_user(self):
+        """ test create command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            pattern = "^[a-z0-9-]*$"
+            self.assertTrue(bool(re.match(pattern, f.getvalue())))
+
+    def test_show_missing_id_user(self):
+        """ test show command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("show User")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_show_corect_id_user(self):
+        """ test show command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            bm_id = f.getvalue()
+            str_show = '{} {} {}'.format('show', 'User', bm_id)
+        with patch('sys.stdout', new=StringIO()) as f:            
+            HBNBCommand().onecmd(str_show)
+            pattern = "[a-zA-Z0-9-:',[{}_()]"
+            self.assertTrue(bool(re.match(pattern, f.getvalue())))
+
+    def test_destroy_missing_id_user(self):
+        """ test destroy command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy User")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_destroy_incorect_id_user(self):
+        """ test destroy command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy User 121212")
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    def test_all_correct_class_user(self):
+        """ test all command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all User")
+            self.assertTrue(f.getvalue())
+
+    def test_update_missing_id_user(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update User")
+            self.assertEqual(f.getvalue(), "** instance id missing **\n")
+
+    def test_update_incorect_id_user(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update User 121212")
+            self.assertEqual(f.getvalue(), "** no instance found **\n")
+
+    def test_update_corect_id_user(self):
+        """ test update command """
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create User")
+            bm_id = f.getvalue()
+            str_show = '{} {} {}'.format('update', 'User', bm_id)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(str_show)
+            self.assertEqual(f.getvalue(), "** attribute name missing **\n")
+
