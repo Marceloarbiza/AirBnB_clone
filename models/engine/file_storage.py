@@ -10,7 +10,10 @@ from models.review import Review
 import json
 
 
-listclass = {"BaseModel": BaseModel, "User": User, "State": State, "City": City, "Amenity": Amenity, "Place": Place, "Review": Review}
+listclass = {"BaseModel": BaseModel, "User": User,
+             "State": State, "City": City,
+             "Amenity": Amenity, "Place": Place,
+             "Review": Review}
 
 
 class FileStorage:
@@ -51,6 +54,5 @@ class FileStorage:
                 base = k.split('.')[0]
                 if base in listclass:
                     self.new(eval(base)(**v))
-                    #self.__objects[k] = listclass[base](**v)
         except:
             pass
