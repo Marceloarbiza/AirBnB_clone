@@ -340,14 +340,14 @@ class TestAirbnb_Console(unittest.TestCase):
 
     """ ____________ Test Count _____________ """
 
-    def test_count(self):
+    def test_count_destroy(self):
         """ test count command """
     
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.count()")
             num_ini = int(f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("create BaseModel")
+            HBNBCommand().onecmd("BaseModel.create()")
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.count()")
             self.assertEqual(int(f.getvalue()), num_ini + 1)
