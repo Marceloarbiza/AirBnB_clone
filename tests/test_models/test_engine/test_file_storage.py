@@ -72,13 +72,20 @@ class TestAirbnb_Storage(unittest.TestCase):
         models.storage.new(r)
         models.storage.new(u)
 
-        self.assertIn('{}.{}'.format(b.__class__.__name__, b.id), models.storage.all().keys())
-        self.assertIn('{}.{}'.format(s.__class__.__name__, s.id), models.storage.all().keys())
-        self.assertIn('{}.{}'.format(c.__class__.__name__, c.id), models.storage.all().keys())
-        self.assertIn('{}.{}'.format(a.__class__.__name__, a.id), models.storage.all().keys())
-        self.assertIn('{}.{}'.format(p.__class__.__name__, p.id), models.storage.all().keys())
-        self.assertIn('{}.{}'.format(r.__class__.__name__, r.id), models.storage.all().keys())
-        self.assertIn('{}.{}'.format(u.__class__.__name__, u.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            b.__class__.__name__, b.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            s.__class__.__name__, s.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            c.__class__.__name__, c.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            a.__class__.__name__, a.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            p.__class__.__name__, p.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            r.__class__.__name__, r.id), models.storage.all().keys())
+        self.assertIn('{}.{}'.format(
+            u.__class__.__name__, u.id), models.storage.all().keys())
 
     def test_save_instance(self):
         """ test saving instances in a json file """
