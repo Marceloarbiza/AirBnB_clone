@@ -63,7 +63,7 @@ class TestAirbnb_Storage(unittest.TestCase):
         p = Place()
         r = Review()
         u = User()
-            
+
         models.storage.new(b)
         models.storage.new(s)
         models.storage.new(c)
@@ -79,7 +79,7 @@ class TestAirbnb_Storage(unittest.TestCase):
         self.assertIn('{}.{}'.format(p.__class__.__name__, p.id), models.storage.all().keys())
         self.assertIn('{}.{}'.format(r.__class__.__name__, r.id), models.storage.all().keys())
         self.assertIn('{}.{}'.format(u.__class__.__name__, u.id), models.storage.all().keys())
-       
+
     def test_save_instance(self):
         """ test saving instances in a json file """
         b = BaseModel()
@@ -102,7 +102,7 @@ class TestAirbnb_Storage(unittest.TestCase):
 
         with open('file.json') as file:
             data = file.read()
-        
+
         self.assertIn('{}.{}'.format(b.__class__.__name__, b.id), data)
         self.assertIn('{}.{}'.format(s.__class__.__name__, s.id), data)
         self.assertIn('{}.{}'.format(c.__class__.__name__, c.id), data)
@@ -110,7 +110,7 @@ class TestAirbnb_Storage(unittest.TestCase):
         self.assertIn('{}.{}'.format(p.__class__.__name__, p.id), data)
         self.assertIn('{}.{}'.format(r.__class__.__name__, r.id), data)
         self.assertIn('{}.{}'.format(u.__class__.__name__, u.id), data)
-        
+
     def test_doc(self):
         """Docstring"""
 
@@ -118,5 +118,3 @@ class TestAirbnb_Storage(unittest.TestCase):
         self.assertIsNotNone(FileStorage.new.__doc__)
         self.assertIsNotNone(FileStorage.save.__doc__)
         self.assertIsNotNone(FileStorage.reload.__doc__)
-
-    

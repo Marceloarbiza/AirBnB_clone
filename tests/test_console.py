@@ -67,7 +67,7 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd("create BaseModel")
             bm_id = f.getvalue()
             str_show = '{} {} {}'.format('show', 'BaseModel', bm_id)
-        with patch('sys.stdout', new=StringIO()) as f:            
+        with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(str_show)
             pattern = "[a-zA-Z0-9-:',[{}_()]"
             self.assertTrue(bool(re.match(pattern, f.getvalue())))
@@ -126,18 +126,9 @@ class TestAirbnb_Console(unittest.TestCase):
             self.assertTrue(f.getvalue())
 
     """ ____________ Test update ____________ """
-    
-    """
-    def test_update_missing_name(self):
-
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("update")
-            self.assertEqual(f.getvalue(), "** class name missing **\n")
-    """
 
     def test_update_dexist_name(self):
         """ test update command """
-
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update MyModel")
             self.assertEqual(f.getvalue(), "** class doesn't exist **\n")
@@ -167,32 +158,10 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd(str_show)
             self.assertEqual(f.getvalue(), "** attribute name missing **\n")
 
-    """            
-    def test_update_corect_id(self):
-
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("create BaseModel")
-            bm_id = f.getvalue()
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("update BaseModel " + bm_id + " first_name")
-            self.assertEqual(f.getvalue(), "** value missing **\n")
-    
-    def test_update_correct(self):
-
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("create BaseModel")
-            bm_id = f.getvalue()
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("update BaseModel " + bm_id + "first_name Franquito")
-            HBNBCommand().onecmd("show BaseModel " + bm_id)
-            self.assertTrue("Franquito" in f.getvalue())
-    """
-
     """ ____________ Test User _____________ """
 
     def test_user_create_exist_name(self):
         """ test create command """
-
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create User")
             pattern = "^[a-z0-9-]*$"
@@ -212,7 +181,7 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd("create User")
             bm_id = f.getvalue()
             str_show = '{} {} {}'.format('show', 'User', bm_id)
-        with patch('sys.stdout', new=StringIO()) as f:            
+        with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(str_show)
             pattern = "[a-zA-Z0-9-:',[{}_()]"
             self.assertTrue(bool(re.match(pattern, f.getvalue())))
@@ -287,7 +256,7 @@ class TestAirbnb_Console(unittest.TestCase):
             HBNBCommand().onecmd("create State")
             bm_id = f.getvalue()
             str_show = '{} {} {}'.format('show', 'State', bm_id)
-        with patch('sys.stdout', new=StringIO()) as f:            
+        with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd(str_show)
             pattern = "[a-zA-Z0-9-:',[{}_()]"
             self.assertTrue(bool(re.match(pattern, f.getvalue())))
@@ -342,7 +311,7 @@ class TestAirbnb_Console(unittest.TestCase):
 
     def test_count_destroy(self):
         """ test count command """
-    
+
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.count()")
             num_ini = int(f.getvalue())
