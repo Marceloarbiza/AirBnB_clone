@@ -1,7 +1,7 @@
 ##  0x00. AirBnB clone - The console
 <img src="https://github.com/Diego-Guarise/Icons-and-logos/blob/master/airbnb.png">
 
-##
+###
 
 # Index
 1. [General Info](#general-info)
